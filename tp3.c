@@ -177,6 +177,19 @@ void afficherMots(t_mot* liste) {
 
 // Fusion listes
 t_mot *fusionner(t_mot *listeA, t_mot *listeB){
+        t_mot *courant = listeB; // on initialise notre pointeur sur le premier mot de B
+    while (courant != NULL) {
+        // ajout du mot de liste B dans list A
+        for (int i = 0; i < courant->nombre_occurences; i++) {
+            listeA = ajouterMot(listeA, courant->mot);
+        }
+        t_mot *tmp = courant;
+        courant = courant->suivant;
+        // libération de l'espace alloué au mot de liste B après son ajout dans liste A
+        free(tmp->mot);
+        free(tmp);
+    }
+    return listeA;
     return NULL; // à remplacer par le code la fonction
 }
 /* ====== FIN fusionner ====== */
